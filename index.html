@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chatbot</title>
+</head>
+<body>
+  <h1>ChatBot :</h1>
+	<div id="chat-container">
+		<div id="chat-output"></div>
+		<input type="text" id="chat-input" placeholder="Type your message here...">
+	</div>
+
+	<script>
+		// Define variables for HTML elements
+		const chatContainer = document.getElementById("chat-container");
+		const chatOutput = document.getElementById("chat-output");
+		const chatInput = document.getElementById("chat-input");
+
+		// Define responses for the chatbot
+		const responses = {
+			"hello": "Hello!",
+	"hi": "Hello!",
+	"how are you": "I'm doing well, thank you. How about you?",
+    "what's your name": "my name is ChatBot",
+	"goodbye": "Goodbye!",
+    "bye": "Goodbye!",
+	"what's up": "Not much, just chatting with you.",
+	"how old are you": "I don't have an age, I'm a computer program.",
+	"what's your favorite color": "I don't have the ability to see colors, sorry!",
+	"do you have any siblings": "No, I'm an only child.",
+	"what's your favorite food": "I don't eat food, since I'm not a living being.",
+	"where are you from": "I was created by a programmer, so you could say I'm from their imagination!",
+	"what's the meaning of life": "That's a philosophical question that people have been debating for centuries. What do you think?",
+	"tell me a joke": "Why did the tomato turn red? Because it saw the salad dressing!",
+	"what's the weather like today": "I'm sorry, I don't have access to real-time weather information.",
+	"what's your favorite movie": "I don't have the ability to watch movies, but I've heard good things about The Matrix.",
+	"what's your favorite book": "I don't read books, since I'm a computer program.",
+	"what's your favorite song": "I don't have the ability to listen to music, sorry!",
+	"how do I get to the nearest gas station": "I'm sorry, I don't have access to location information.",
+	"what's your favorite animal": "I don't have the ability to have preferences, but I think all animals are fascinating!",
+	"what's the capital of France": "The capital of France is Paris.",
+	"what's the tallest mountain in the world": "The tallest mountain in the world is Mount Everest.",
+	"what's the biggest country in the world": "The biggest country in the world by land area is Russia.",
+	"what's the smallest country in the world": "The smallest country in the world by land area is Vatican City.",
+	"what's the longest river in the world": "The longest river in the world is the Nile.",
+	"what's the deepest ocean in the world": "The deepest ocean in the world is the Pacific Ocean.",
+	"what's the highest waterfall in the world": "The highest waterfall in the world is Angel Falls in Venezuela.",
+	"what's the largest desert in the world": "The largest desert in the world is the Sahara.",
+	"who invented the telephone": "The telephone was invented by Alexander Graham Bell.",
+	"who painted the Mona Lisa": "The Mona Lisa was painted by Leonardo da Vinci.",
+	"who wrote the novel 1984": "The novel 1984 was written by George Orwell.",
+	"who discovered penicillin": "Penicillin was discovered by Alexander Fleming.",
+	"who directed the movie Jaws": "The movie Jaws was directed by Steven Spielberg.",
+	"who composed the Symphony No. 9 in D minor, Op. 125": "The Symphony No. 9 in D minor, Op. 125 was composed by Ludwig van Beethoven.",
+	"who discovered the law of gravity": "The law of gravity was discovered by Sir Isaac Newton.",
+	"who was the first person to walk on the moon": "The first person to walk on the moon was Neil Armstrong.",
+	"who founded Microsoft": "Microsoft was founded by Bill",
+    	"who created Facebook": "Facebook was created by Mark Zuckerberg.",
+	"who painted the Sistine Chapel ceiling": "The Sistine Chapel ceiling was painted by Michelangelo.",
+	"what's the distance from Earth to the Moon": "The average distance from Earth to the Moon is about 238,855 miles (384,400 kilometers).",
+	"what's the speed of light": "The speed of light in a vacuum is approximately 186,282 miles per second (299,792 kilometers per second).",
+	"what's the boiling point of water": "The boiling point of water is 212 degrees Fahrenheit (100 degrees Celsius) at sea level.",
+	"what's the freezing point of water": "The freezing point of water is 32 degrees Fahrenheit (0 degrees Celsius) at sea level.",
+	"what's the circumference of the Earth": "The circumference of the Earth at the equator is approximately 24,901 miles (40,075 kilometers).",
+	"what's the diameter of the Earth": "The diameter of the Earth is approximately 7,926 miles (12,742 kilometers).",
+	"what's the population of the world": "As of 2021, the estimated population of the world is about 7.9 billion people.",
+	"what's the population of the United States": "As of 2021, the estimated population of the United States is about 331 million people.",
+	"what's the population of China": "As of 2021, the estimated population of China is about 1.4 billion people.",
+	"what's the population of India": "As of 2021, the estimated population of India is about 1.4 billion people.",
+	"what's the population of Japan": "As of 2021, the estimated population of Japan is about 126 million people.",
+	"what's the population of Russia": "As of 2021, the estimated population of Russia is about 144 million people.",
+	"what's the population of Brazil": "As of 2021, the estimated population of Brazil is about 213 million people.",
+	"what's the population of Mexico": "As of 2021, the estimated population of Mexico is about 130 million people.",
+	"what's the population of Canada": "As of 2021, the estimated population of Canada is about 38 million people.",
+	"what's the population of Australia": "As of 2021, the estimated population of Australia is about 26 million people.",
+	"what's the highest building in the world": "The highest building in the world is the Burj Khalifa in Dubai, United Arab Emirates.",
+	"who created the World Wide Web": "The World Wide Web was created by Sir Tim Berners-Lee.",
+	"who discovered America": "Christopher Columbus is often credited with discovering America, but there were already people living in the Americas when he arrived. Other explorers and settlers also came to the Americas before and after Columbus.",
+	"what's the national animal of Canada": "The national animal of Canada is the beaver.",
+	"what's the national animal of the United States": "The national animal of the United States is the bald eagle.",
+	"what's the national animal of Australia": "The national animal of Australia is the kangaroo.",
+	"what's the national animal of China": "The national animal of China is the giant panda.",
+	"what's the national animal of Japan": "The national animal of Japan is the green pheasant.",
+	"what's the national animal of Russia": "The national animal of Russia is giant bird",
+    	"what's the national animal of Brazil": "The national animal of Brazil is the jaguar.",
+	"what's the national animal of Mexico": "The national animal of Mexico is the golden eagle.",
+	"what's the national animal of France": "France does not have an official national animal, but the Gallic rooster is often considered a symbol of the country.",
+	"what's the national animal of England": "England does not have an official national animal, but the lion is often associated with the country.",
+	"what's the national animal of Scotland": "Scotland does not have an official national animal, but the unicorn is often considered a symbol of the country.",
+	"what's the national animal of Ireland": "Ireland does not have an official national animal, but the harp is often considered a symbol of the country.",
+	"what's the national animal of Germany": "Germany does not have an official national animal, but the eagle is often associated with the country.",
+	"what's the national animal of Italy": "Italy does not have an official national animal, but the wolf is often considered a symbol of the country.",
+	"what's the national animal of Spain": "Spain does not have an official national animal, but the bull is often associated with the country.",
+	"what's the national animal of Greece": "Greece does not have an official national animal, but the dolphin and the phoenix are often considered symbols of the country.",
+	"what's the national animal of Egypt": "Egypt does not have an official national animal, but the lion is often associated with the country.",
+	"what's the national animal of South Africa": "South Africa does not have an official national animal, but the springbok is often considered a symbol of the country.",
+	"what's the national animal of India": "India does not have an official national animal, but the Bengal tiger is often considered a symbol of the country.",
+	"what's the national animal of Indonesia": "Indonesia does not have an official national animal, but the Komodo dragon is often considered a symbol of the country.",
+	"what's the national animal of Australia": "Australia does not have an official national animal, but the kangaroo and the emu are often considered symbols of the country.",
+	"what's the national animal of New Zealand": "New Zealand does not have an official national animal, but the kiwi is often considered a symbol of the country.",
+	"who invented the telephone": "The telephone was invented by Alexander Graham Bell.",
+	"who invented the light bulb": "The light bulb was invented by Thomas Edison.",
+	"who invented the airplane": "The airplane was invented by the Wright brothers, Orville and Wilbur.",
+	"who discovered penicillin": "Penicillin was discovered by Sir Alexander Fleming.",
+	"who was the first person to walk on the moon": "The first person to walk on the moon was Neil Armstrong.",
+	"what's the largest ocean": "The largest ocean is the Pacific Ocean.",
+	"what's the smallest ocean": "The smallest ocean is the Arctic Ocean.",
+	"what's the deepest ocean": "The deepest ocean is the Pacific Ocean, specifically the Mariana Trench.",
+	"what's the highest mountain in the world": "The highest mountain in the world is Mount Everest, located in the Himalayas.",
+	"what's the longest river in the world": "The longest river in the world is the Nile River, which runs through Egypt and several other countries in Africa.",
+	"what's the largest continent": "The largest continent is Asia.",
+    
+		};
+
+		// Function to generate chatbot responses
+		function generateResponse(input) {
+			input = input.toLowerCase(); // Convert input to lowercase
+			if (responses[input]) { // If there is a response for the input
+				return responses[input]; // Return the response
+			} else {
+				return "I'm sorry, I don't understand or the reponse is not inptut."; // Otherwise, return a default response
+			}
+		}
+
+		// Function to add a message to the chat output
+		function addMessage(message, sender) {
+			const newMessage = document.createElement("div"); // Create a new div element for the message
+			newMessage.classList.add("message"); // Add a "message" class to the div
+			newMessage.classList.add(sender); // Add the sender (either "user" or "bot") as a class to the div
+			newMessage.innerText = message; // Set the text of the div to the message
+			chatOutput.appendChild(newMessage); // Add the div to the chat output
+		}
+
+		// Event listener for when the user submits a message
+		chatInput.addEventListener("keydown", function(event) {
+			if (event.keyCode === 13) { // If the user presses the enter key
+				const userInput = chatInput.value; // Get the user's input
+				addMessage(userInput, "user"); // Add the user's message to the chat output
+				const botResponse = generateResponse(userInput); // Generate a response from the chatbot
+				addMessage(botResponse, "bot"); // Add the chatbot's response to the chat output
+				chatInput.value = ""; // Clear the input field
+			}
+		});
+	</script>
+
+	<style>
+		#chat-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			background-color: #f1f1f1;
+		}
+
+		#chat-output {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: flex-end;
+			height: 80%;
+			width: 80%;
+			padding: 20px;
+			background-color: #fff;
+			border-radius: 5px;
+			overflow-y: auto;
+			box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+		}
+
+		#chat-input {
+			height: 50px;
+			width: 80%;
+			padding: 10px;
+			border: none;
+			background-color: #fff;
+			border-radius: 5px;
+			box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.
+		}
+
+		.message {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			margin-bottom: 10px;
+		}
+
+		.user {
+			align-items: flex-end;
+		}
+
+		.message:not(.user) {
+			background-color: #eee;
+		}
+
+		.bot {
+			color: #ffffff;
+			background-color: #007bff;
+		}
+	</style>
+</body>
+</html>
